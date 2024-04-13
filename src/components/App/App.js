@@ -1,31 +1,32 @@
 import React, { useState } from "react";
-import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+} from "react-native";
 import UploadImage from "../UploadImage/UploadImage";
 import { registerRootComponent } from "expo";
 import { runAI } from "../../utils/googleAPI";
+import Main from "../Main/Main";
+import RecipeList from "../RecipeList/RecipeList";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import { NavigationContainer } from "@react-navigation/native";
 
 function App() {
-  const [response, setResponse] = useState("Upload an Image!");
-  const [isLoading, setIsLoading] = useState(false);
-  const handleSearch = (file) => {
-    setIsLoading(true);
-    runAI(file)
-      .then((res) => {
-        console.log(res);
-        setResponse(res);
-      })
-      .finally(() => setIsLoading(false));
-  };
   return (
-    <SafeAreaView style={styles.container}>
-      <UploadImage onSearch={handleSearch} />
-      <View style={styles.container}>
-        <Text style={styles.text}>{isLoading ? "Loading..." : response}</Text>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={styles.container}>
+        <Header title="What's in my fridge" />
+        <Main />
+        <Footer />
+      </SafeAreaView>
+    </NavigationContainer>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    width: Dimensions.get("window").width,
   },
   text: {
     fontSize: 20,

@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet, Dimensions } from "react-native";
+import RecipeNode from "../RecipeNode/RecipeNode";
 
 export default function RecipeList() {
   const [recipe, setRecipe] = useState("");
-  const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([
+    { id: 123, name: "aa" },
+    { id: 124, name: "aa" },
+    { id: 125, name: "aa" },
+    { id: 126, name: "aa" },
+  ]);
 
-  const renderItem = ({ item }) => (
-    <View style={styles.recipeContainer}>
-      <Text style={styles.recipeTitle}>{item.title}</Text>
-    </View>
-  );
+  const renderItem = ({ item }) => <RecipeNode name={item.name} />;
 
   return (
     <View style={styles.container}>
@@ -26,8 +28,9 @@ export default function RecipeList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
     padding: 20,
+    width: "100%",
   },
   inputContainer: {
     flexDirection: "row",
@@ -62,6 +65,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   recipesList: {
-    flexGrow: 1,
+    gap: 24,
   },
 });
