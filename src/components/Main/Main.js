@@ -12,6 +12,8 @@ export default function Main() {
       <Stack.Navigator>
         <Stack.Screen name="RecipeList" component={RecipeList} />
         <Stack.Screen name="ImageSearch" component={ImageSearch} />
+        <Stack.Screen name="ItemList" component={RecipeList} />
+        <Stack.Screen name="ShoppingList" component={RecipeList} />
       </Stack.Navigator>
     </View>
   );

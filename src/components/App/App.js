@@ -7,23 +7,46 @@ import {
   View,
   Dimensions,
 } from "react-native";
-import UploadImage from "../UploadImage/UploadImage";
 import { registerRootComponent } from "expo";
-import { runAI } from "../../utils/googleAPI";
-import Main from "../Main/Main";
 import RecipeList from "../RecipeList/RecipeList";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ImageSearch from "../ImageSearch/ImageSearch";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import ShoppingList from "../ShoppingList/ShoppingList";
+import FoodList from "../FoodList/FoodList";
+const Tab = createBottomTabNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <SafeAreaView style={styles.container}>
-        <Header title="What's in my fridge" />
-        <Main />
-        <Footer />
-      </SafeAreaView>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === "Recipe") {
+              iconName = focused ? "list" : "list-outline";
+            } else if (route.name === "Search") {
+              iconName = focused ? "search" : "search-outline";
+            } else if (route.name === "Shopping") {
+              iconName = focused ? "cart" : "cart-outline";
+            } else if (route.name === "Items") {
+              iconName = focused ? "fast-food" : "fast-food-outline";
+            }
+
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: "tomato",
+          tabBarInactiveTintColor: "gray",
+        })}
+      >
+        <Tab.Screen name="Recipe" component={RecipeList} />
+        <Tab.Screen name="Search" component={ImageSearch} />
+        <Tab.Screen name="Shopping" component={ShoppingList} />
+        <Tab.Screen name="Items" component={FoodList} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }

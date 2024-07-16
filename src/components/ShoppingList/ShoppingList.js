@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { View, Text, FlatList, StyleSheet, Dimensions } from "react-native";
 import RecipeNode from "../RecipeNode/RecipeNode";
 
-export default function RecipeList({ title }) {
+export default function ShoppingList({ title }) {
   const [item, setItem] = useState("");
   const [list, setList] = useState([
-    { id: 123, name: title },
-    { id: 124, name: "aa" },
-    { id: 125, name: "aa" },
-    { id: 126, name: "aa" },
+    { id: 123, name: "item 1" },
+    { id: 124, name: "item" },
+    { id: 125, name: "item" },
+    { id: 126, name: "item" },
   ]);
 
   const renderItem = ({ item }) => <RecipeNode name={item.name} />;
@@ -28,7 +28,7 @@ export default function RecipeList({ title }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: "#fff",
     padding: 20,
     width: "100%",
   },
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   recipeContainer: {
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#000",
     padding: 15,
     marginBottom: 10,
     borderRadius: 5,

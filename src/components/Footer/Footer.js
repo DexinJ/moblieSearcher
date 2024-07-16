@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+
 const Footer = ({ onMenuPress, onBackPress }) => {
   return (
     <View style={styles.footer}>
