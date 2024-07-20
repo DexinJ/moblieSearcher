@@ -10,7 +10,7 @@ export default function UploadImage({ onSearch }) {
     let _image = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       base64: true,
-      quality: 0.8,
+      quality: 0.5,
     });
 
     if (!_image.cancelled) {

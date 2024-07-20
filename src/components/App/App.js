@@ -13,8 +13,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ImageSearch from "../ImageSearch/ImageSearch";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import ShoppingList from "../ShoppingList/ShoppingList";
-import FoodList from "../FoodList/FoodList";
 const Tab = createBottomTabNavigator();
 
 function App() {
@@ -44,8 +42,8 @@ function App() {
       >
         <Tab.Screen name="Recipe" component={RecipeList} />
         <Tab.Screen name="Search" component={ImageSearch} />
-        <Tab.Screen name="Shopping" component={ShoppingList} />
-        <Tab.Screen name="Items" component={FoodList} />
+        <Tab.Screen name="Shopping" component={RecipeList} />
+        <Tab.Screen name="Items" component={RecipeList} />
       </Tab.Navigator>
     </NavigationContainer>
   );

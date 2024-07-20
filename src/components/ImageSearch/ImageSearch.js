@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import UploadImage from "../UploadImage/UploadImage";
 import { runAI } from "../../utils/googleAPI";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
 function ImageSearch() {
   const [response, setResponse] = useState("Upload an Image!");
   const [isLoading, setIsLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const handleSearch = (file) => {
     setIsLoading(true);
+    setModalVisible(true);
     runAI(file)
       .then((res) => {
         console.log(res);
@@ -18,9 +21,14 @@ function ImageSearch() {
   return (
     <View style={styles.container}>
       <UploadImage onSearch={handleSearch} />
-      <View style={styles.container}>
-        <Text style={styles.text}>{isLoading ? "Loading..." : response}</Text>
-      </View>
+      <ConfirmModal
+        response={response}
+        isLoading={isLoading}
+        visible={modalVisible}
+        closeModal={() => {
+          setModalVisible(false);
+        }}
+      />
     </View>
   );
 }
