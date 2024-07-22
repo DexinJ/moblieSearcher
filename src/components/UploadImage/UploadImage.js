@@ -12,8 +12,7 @@ export default function UploadImage({ onSearch }) {
       base64: true,
       quality: 0.5,
     });
-
-    if (!_image.cancelled) {
+    if (!_image.canceled) {
       // console.log(_image.assets[0].type);
       setImage(_image.assets[0].uri);
       setBase64(_image.assets[0].base64);
@@ -27,7 +26,7 @@ export default function UploadImage({ onSearch }) {
       base64: true,
       quality: 0.8,
     });
-    if (!_image.cancelled) {
+    if (!_image.canceled) {
       // console.log(_image.assets[0].type);
       setImage(_image.assets[0].uri);
       setBase64(_image.assets[0].base64);

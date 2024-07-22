@@ -4,7 +4,7 @@ import UploadImage from "../UploadImage/UploadImage";
 import { runAI } from "../../utils/googleAPI";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
-function ImageSearch() {
+function ImageSearch({ navigation, route }) {
   const [response, setResponse] = useState("Upload an Image!");
   const [isLoading, setIsLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -13,10 +13,16 @@ function ImageSearch() {
     setModalVisible(true);
     runAI(file)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setResponse(res);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+  const handleRecipeSearch = (ingredients) => {
+    navigation.navigate("Recipe", { ingredients: ingredients });
+    setModalVisible(false);
   };
   return (
     <View style={styles.container}>
@@ -28,6 +34,7 @@ function ImageSearch() {
         closeModal={() => {
           setModalVisible(false);
         }}
+        searchModal={handleRecipeSearch}
       />
     </View>
   );

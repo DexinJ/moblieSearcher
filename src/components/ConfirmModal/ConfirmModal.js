@@ -8,9 +8,15 @@ import {
   View,
   ActivityIndicator,
 } from "react-native";
-import RecipeList from "../RecipeList/RecipeList";
+import FoodList from "../../FoodList/FoodList";
 
-const ConfirmModal = ({ response, isLoading, visible, closeModal }) => {
+const ConfirmModal = ({
+  response,
+  visible,
+  isLoading,
+  closeModal,
+  searchModal,
+}) => {
   res = [];
   if (response.slice(-1) == ".") {
     res = response.slice(0, -1).split(", ");
@@ -39,13 +45,13 @@ const ConfirmModal = ({ response, isLoading, visible, closeModal }) => {
                 }}
               />
             ) : (
-              <RecipeList title="Ingredients:" items={res} />
+              <FoodList title="Ingredients:" items={res} />
             )}
           </View>
           <View style={styles.modalButtons}>
             <Pressable
               style={[styles.button, styles.buttonSearch]}
-              onPress={() => closeModal()}
+              onPress={() => searchModal(response)}
             >
               <Text style={styles.textStyle}>Search</Text>
             </Pressable>

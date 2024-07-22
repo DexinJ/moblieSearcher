@@ -39,6 +39,7 @@ function App() {
           tabBarActiveTintColor: "tomato",
           tabBarInactiveTintColor: "gray",
         })}
+        initialRouteName="Search"
       >
         <Tab.Screen name="Recipe" component={RecipeList} />
         <Tab.Screen name="Search" component={ImageSearch} />
