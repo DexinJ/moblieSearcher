@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, StyleSheet, Dimensions } from "react-native";
-import RecipeNode from "../components/RecipeNode/RecipeNode";
+import FoodNode from "../FoodNode/FoodNode";
 
 export default function FoodList({
   title = "Title",
@@ -12,7 +12,7 @@ export default function FoodList({
     rend.push({ id: count, name: item });
     count++;
   });
-  const renderItem = ({ item }) => <RecipeNode name={item.name} />;
+  const renderItem = ({ item }) => <FoodNode name={item.name} />;
   return (
     <View style={styles.container}>
       <Text style={styles.recipeTitle}>{title}</Text>

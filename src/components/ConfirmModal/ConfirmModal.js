@@ -8,7 +8,7 @@ import {
   View,
   ActivityIndicator,
 } from "react-native";
-import FoodList from "../../FoodList/FoodList";
+import FoodList from "../FoodList/FoodList";
 
 const ConfirmModal = ({
   response,

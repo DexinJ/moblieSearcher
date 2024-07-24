@@ -12,6 +12,7 @@ import { getRecipe } from "../../utils/spoonacularAPI";
 export default function RecipeList({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false);
   const [recipeList, setRecipeList] = useState([]);
+  const [isCardLoading, setIsCardLoading] = useState(false);
   const handleRecipeSearch = () => {
     if (route.params) {
       setIsLoading(true);
@@ -28,15 +29,36 @@ export default function RecipeList({ navigation, route }) {
     }
   };
 
+  const handleSelectedRecipe = (id) => {
+    setIsCardLoading(true);
+    handleActiveModal("recipe");
+    getRecipeInfo(id)
+      .then((res) => {
+        setCurrentRecipe(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsCardLoading(false);
+      });
+  };
+
   count = 0;
   rend = [];
   title = "Search result:";
   const renderItem = ({ item }) => (
-    <RecipeNode image={item.image} name={item.title} />
+    <RecipeNode
+      image={item.image}
+      name={item.title}
+      onSearch={() => {
+        handleSelectedRecipe(item.id);
+      }}
+    />
   );
   useEffect(() => {
     handleRecipeSearch();
-  }, [route.params]);
+  }, [route.params.ingredients]);
   return (
     <View style={styles.container}>
       {isLoading ? (
