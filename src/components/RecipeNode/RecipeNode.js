@@ -1,8 +1,12 @@
 import React, { memo, useState } from "react";
-import { Image, View, Button, Text, StyleSheet } from "react-native";
-export default RecipeNode = memo(function RecipeNode({ image, name, onCLick }) {
+import { Image, View, Button, Text, StyleSheet, Pressable } from "react-native";
+export default RecipeNode = memo(function RecipeNode({
+  image,
+  name,
+  onSearch,
+}) {
   return (
-    <Button onCLick={onCLick} style={styles.container}>
+    <Pressable onPress={onSearch} style={styles.container}>
       {image && (
         <Image
           source={
@@ -12,7 +16,7 @@ export default RecipeNode = memo(function RecipeNode({ image, name, onCLick }) {
         />
       )}
       <Text style={styles.text}>{name}</Text>
-    </Button>
+    </Pressable>
   );
 });
 const styles = StyleSheet.create({

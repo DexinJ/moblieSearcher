@@ -7,12 +7,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 import RecipeNode from "../RecipeNode/RecipeNode";
-import { getRecipe } from "../../utils/spoonacularAPI";
+import { getRecipe, getRecipeInfo } from "../../utils/spoonacularAPI";
+import RecipeModal from "../RecipeModal/RecipeModal";
 
 export default function RecipeList({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false);
   const [recipeList, setRecipeList] = useState([]);
   const [isCardLoading, setIsCardLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [currentRecipe, setCurrentRecipe] = useState({});
+
   const handleRecipeSearch = () => {
     if (route.params) {
       setIsLoading(true);
@@ -29,10 +33,11 @@ export default function RecipeList({ navigation, route }) {
     }
   };
 
-  const handleSelectedRecipe = (id) => {
+  const handleSelectedRecipe = (item) => {
+    console.log("CLICKED!");
     setIsCardLoading(true);
-    handleActiveModal("recipe");
-    getRecipeInfo(id)
+    setModalVisible(true);
+    getRecipeInfo(item.id)
       .then((res) => {
         setCurrentRecipe(res);
       })
@@ -52,13 +57,13 @@ export default function RecipeList({ navigation, route }) {
       image={item.image}
       name={item.title}
       onSearch={() => {
-        handleSelectedRecipe(item.id);
+        handleSelectedRecipe(item);
       }}
     />
   );
   useEffect(() => {
     handleRecipeSearch();
-  }, [route.params.ingredients]);
+  }, [route.params]);
   return (
     <View style={styles.container}>
       {isLoading ? (
@@ -83,6 +88,14 @@ export default function RecipeList({ navigation, route }) {
           </View>
         </View>
       )}
+      <RecipeModal
+        isLoading={isCardLoading}
+        visible={modalVisible}
+        content={currentRecipe}
+        closeModal={() => {
+          setModalVisible(false);
+        }}
+      />
     </View>
   );
 }
