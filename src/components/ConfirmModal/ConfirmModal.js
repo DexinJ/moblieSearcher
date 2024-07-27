@@ -57,14 +57,20 @@ const ConfirmModal = ({
           <View style={styles.modalButtons}>
             <Pressable
               style={[styles.button, styles.buttonSearch]}
-              onPress={() => searchModal(selected.toString())}
+              onPress={() => {
+                searchModal(selected.toString());
+                setSelected([]);
+              }}
             >
               <Text style={styles.textStyle}>Search</Text>
             </Pressable>
 
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => closeModal()}
+              onPress={() => {
+                setSelected([]);
+                closeModal();
+              }}
             >
               <Text style={styles.textStyle}>Close</Text>
             </Pressable>

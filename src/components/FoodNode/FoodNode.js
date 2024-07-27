@@ -1,15 +1,15 @@
 import React, { memo, useState } from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 export default RecipeNode = memo(function FoodNode({ name, onClick, list }) {
-  backgroundColor = name in list ? "#3c4220" : "#EFFAC1";
-  color = name in list ? "white" : "black";
+  backgroundColor = list.includes(name) ? "#3c4220" : "#EFFAC1";
+  color = list.includes(name) ? "white" : "black";
 
   return (
     <TouchableOpacity
-      style={(styles.container, { backgroundColor })}
+      style={[styles.container, { backgroundColor }]}
       onPress={onClick}
     >
-      <Text style={styles.text}>{name}</Text>
+      <Text style={[styles.text, { color: color }]}>{name}</Text>
     </TouchableOpacity>
   );
 });

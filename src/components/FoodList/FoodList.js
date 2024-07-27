@@ -9,6 +9,7 @@ export default function FoodList({
   setSelected,
 }) {
   count = 0;
+  c2 = 0;
   rend = [];
   items.forEach((item) => {
     rend.push({ id: count, name: item });
@@ -22,10 +23,12 @@ export default function FoodList({
     />
   );
   const handleSelectItem = (name) => {
-    if (name in selected) {
+    if (selected.includes(name)) {
       setSelected((selected) => selected.filter((n) => n != name));
+      c2 -= 1;
     } else {
       setSelected((selected) => [...selected, name]);
+      c2 += 1;
     }
   };
   return (
@@ -35,8 +38,9 @@ export default function FoodList({
         <FlatList
           data={rend}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.id}
           contentContainerStyle={styles.recipesList}
+          extraData={c2}
         />
       </View>
     </View>
