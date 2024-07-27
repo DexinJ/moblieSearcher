@@ -5,6 +5,8 @@ import FoodNode from "../FoodNode/FoodNode";
 export default function FoodList({
   title = "Title",
   items = ["aa", "aa", "aa"],
+  selected,
+  setSelected,
 }) {
   count = 0;
   rend = [];
@@ -12,7 +14,20 @@ export default function FoodList({
     rend.push({ id: count, name: item });
     count++;
   });
-  const renderItem = ({ item }) => <FoodNode name={item.name} />;
+  const renderItem = ({ item }) => (
+    <FoodNode
+      name={item.name}
+      onClick={() => handleSelectItem(item.name)}
+      list={selected}
+    />
+  );
+  const handleSelectItem = (name) => {
+    if (name in selected) {
+      setSelected((selected) => selected.filter((n) => n != name));
+    } else {
+      setSelected((selected) => [...selected, name]);
+    }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.recipeTitle}>{title}</Text>

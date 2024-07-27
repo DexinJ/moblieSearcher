@@ -17,6 +17,7 @@ const ConfirmModal = ({
   closeModal,
   searchModal,
 }) => {
+  const [selected, setSelected] = useState([]);
   res = [];
   if (response.slice(-1) == ".") {
     res = response.slice(0, -1).split(", ");
@@ -45,13 +46,18 @@ const ConfirmModal = ({
                 }}
               />
             ) : (
-              <FoodList title="Ingredients:" items={res} />
+              <FoodList
+                title="Ingredients:"
+                items={res}
+                selected={selected}
+                setSelected={setSelected}
+              />
             )}
           </View>
           <View style={styles.modalButtons}>
             <Pressable
               style={[styles.button, styles.buttonSearch]}
-              onPress={() => searchModal(response)}
+              onPress={() => searchModal(selected.toString())}
             >
               <Text style={styles.textStyle}>Search</Text>
             </Pressable>

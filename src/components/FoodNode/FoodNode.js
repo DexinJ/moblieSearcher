@@ -1,25 +1,23 @@
 import React, { memo, useState } from "react";
-import { Image, View, Text, StyleSheet } from "react-native";
-export default RecipeNode = memo(function FoodNode({ image, name }) {
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
+export default RecipeNode = memo(function FoodNode({ name, onClick, list }) {
+  backgroundColor = name in list ? "#3c4220" : "#EFFAC1";
+  color = name in list ? "white" : "black";
+
   return (
-    <View style={styles.container}>
-      {image && (
-        <Image
-          source={
-            image ? { uri: image } : require("../../../assets/splash.png")
-          }
-          style={styles.image}
-        />
-      )}
+    <TouchableOpacity
+      style={(styles.container, { backgroundColor })}
+      onPress={onClick}
+    >
       <Text style={styles.text}>{name}</Text>
-    </View>
+    </TouchableOpacity>
   );
 });
 const styles = StyleSheet.create({
   container: {
     paddingTop: 5,
     paddingBottom: 8,
-    backgroundColor: "#EFFAC1",
+
     borderRadius: 15,
     minHeight: 20,
   },

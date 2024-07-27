@@ -21,6 +21,7 @@ function ImageSearch({ navigation, route }) {
       });
   };
   const handleRecipeSearch = (ingredients) => {
+    console.log(ingredients);
     navigation.navigate("Recipe", { ingredients: ingredients });
     setModalVisible(false);
   };
