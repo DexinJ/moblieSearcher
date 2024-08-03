@@ -34,7 +34,7 @@ export default function RecipeList({ navigation, route }) {
   };
 
   const handleSelectedRecipe = (item) => {
-    console.log("CLICKED!");
+    //console.log("CLICKED!");
     setIsCardLoading(true);
     setModalVisible(true);
     getRecipeInfo(item.id)
