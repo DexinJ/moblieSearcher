@@ -7,36 +7,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 import RecipeNode from "../RecipeNode/RecipeNode";
-import { getRecipe, getRecipeInfo } from "../../utils/spoonacularAPI";
+import { getRecipeInfo } from "../../utils/spoonacularAPI";
 import RecipeModal from "../RecipeModal/RecipeModal";
-import { mergeItem } from "../../utils/AsyncStorage";
+import { getItem } from "../../utils/AsyncStorage";
 
-export default function RecipeList({ navigation, route }) {
+export default function SavedList({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false);
   const [recipeList, setRecipeList] = useState([]);
   const [isCardLoading, setIsCardLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState({});
-
-  const handleSaveRecipe = (item) => {
-    mergeItem("favorite", item);
-  };
-
-  const handleRecipeSearch = () => {
-    if (route.params) {
-      setIsLoading(true);
-      getRecipe(route.params.ingredients)
-        .then((res) => {
-          setRecipeList(res);
-        })
-        .catch((err) => {
-          console.error(err);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  };
 
   const handleSelectedRecipe = (item) => {
     //console.log("CLICKED!");
@@ -67,8 +47,14 @@ export default function RecipeList({ navigation, route }) {
     />
   );
   useEffect(() => {
-    handleRecipeSearch();
-  }, [route.params]);
+    getItem("favorite")
+      .then((res) => {
+        setRecipeList(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
   return (
     <View style={styles.container}>
       {isLoading ? (
