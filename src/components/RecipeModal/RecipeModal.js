@@ -76,12 +76,12 @@ const RecipeModal = ({ content, visible, isLoading, closeModal, saveItem }) => {
             )}
           </View>
           <View style={styles.modalButtons}>
-            <OpenURLButton
+            <Pressable
               style={[styles.button, styles.buttonSearch]}
               onPress={() => saveItem()}
             >
               Save to Favorite
-            </OpenURLButton>
+            </Pressable>
             <OpenURLButton
               style={[styles.button, styles.buttonSearch]}
               url={content?.sourceUrl}

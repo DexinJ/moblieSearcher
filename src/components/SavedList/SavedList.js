@@ -50,6 +50,7 @@ export default function SavedList({ navigation, route }) {
     getItem("favorite")
       .then((res) => {
         setRecipeList(res);
+        console.log(res);
       })
       .catch((err) => {
         console.error(err);

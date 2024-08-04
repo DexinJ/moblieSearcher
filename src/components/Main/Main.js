@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 import RecipeList from "../RecipeList/RecipeList";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ImageSearch from "../ImageSearch/ImageSearch";
+import SavedList from "../SavedList/SavedList";
 
 const Stack = createNativeStackNavigator();
 export default function Main() {
@@ -12,7 +13,7 @@ export default function Main() {
       <Stack.Navigator>
         <Stack.Screen name="RecipeList" component={RecipeList} />
         <Stack.Screen name="ImageSearch" component={ImageSearch} />
-        <Stack.Screen name="ItemList" component={RecipeList} />
+        <Stack.Screen name="ItemList" component={SavedList} />
         <Stack.Screen name="ShoppingList" component={RecipeList} />
       </Stack.Navigator>
     </View>
