@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   SafeAreaView,
@@ -13,9 +13,19 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ImageSearch from "../ImageSearch/ImageSearch";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import SavedList from "../SavedList/SavedList";
+import { getItem, setItem } from "../../utils/AsyncStorage";
 const Tab = createBottomTabNavigator();
 
 function App() {
+  handleOpenApp = async () => {
+    if ((await getItem("favorite")) == null) {
+      setItem("favorite", []);
+    }
+  };
+  useEffect(() => {
+    handleOpenApp();
+  }, []);
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -44,7 +54,7 @@ function App() {
         <Tab.Screen name="Recipe" component={RecipeList} />
         <Tab.Screen name="Search" component={ImageSearch} />
         <Tab.Screen name="Shopping" component={RecipeList} />
-        <Tab.Screen name="Items" component={RecipeList} />
+        <Tab.Screen name="Items" component={SavedList} />
       </Tab.Navigator>
     </NavigationContainer>
   );

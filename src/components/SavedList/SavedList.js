@@ -9,7 +9,9 @@ import {
 import RecipeNode from "../RecipeNode/RecipeNode";
 import { getRecipeInfo } from "../../utils/spoonacularAPI";
 import RecipeModal from "../RecipeModal/RecipeModal";
-import { getItem } from "../../utils/AsyncStorage";
+import { clear, getItem, setItem } from "../../utils/AsyncStorage";
+import { useIsFocused } from "@react-navigation/native";
+import SavedModal from "../SavedModal/SavedModal";
 
 export default function SavedList({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,26 +19,42 @@ export default function SavedList({ navigation, route }) {
   const [isCardLoading, setIsCardLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState({});
+  const isFocused = useIsFocused();
 
   const handleSelectedRecipe = (item) => {
     //console.log("CLICKED!");
-    setIsCardLoading(true);
     setModalVisible(true);
-    getRecipeInfo(item.id)
-      .then((res) => {
-        setCurrentRecipe(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        setIsCardLoading(false);
-      });
+    setCurrentRecipe(item);
   };
 
+  const handleSaveRecipe = async (item) => {
+    //console.log(item);
+    setIsCardLoading(true);
+    old = await getItem("favorite");
+    await setItem(
+      (key = "favorite"),
+      (value = old.filter((i) => {
+        return i.id != item.id;
+      }))
+    ).finally(() => {
+      setRecipeList(
+        old.filter((i) => {
+          return i.id != item.id;
+        })
+      );
+      setIsCardLoading(false);
+      setModalVisible(false);
+    });
+  };
+
+  const handlePage = async () => {
+    const list = await getItem("favorite");
+    setRecipeList(list);
+    //console.log(list);
+  };
   count = 0;
   rend = [];
-  title = "Search result:";
+  title = "Saved Recipes:";
   const renderItem = ({ item }) => (
     <RecipeNode
       image={item.image}
@@ -47,15 +65,12 @@ export default function SavedList({ navigation, route }) {
     />
   );
   useEffect(() => {
-    getItem("favorite")
-      .then((res) => {
-        setRecipeList(res);
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  });
+    if (isFocused) {
+      handlePage();
+    }
+    //console.log("sdadsf");
+  }, [isFocused]);
+
   return (
     <View style={styles.container}>
       {isLoading ? (
@@ -80,7 +95,7 @@ export default function SavedList({ navigation, route }) {
           </View>
         </View>
       )}
-      <RecipeModal
+      <SavedModal
         isLoading={isCardLoading}
         visible={modalVisible}
         content={currentRecipe}

@@ -9,7 +9,12 @@ import {
 import RecipeNode from "../RecipeNode/RecipeNode";
 import { getRecipe, getRecipeInfo } from "../../utils/spoonacularAPI";
 import RecipeModal from "../RecipeModal/RecipeModal";
-import { mergeItem } from "../../utils/AsyncStorage";
+import {
+  getAllKeys,
+  getItem,
+  mergeItem,
+  setItem,
+} from "../../utils/AsyncStorage";
 
 export default function RecipeList({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,8 +23,12 @@ export default function RecipeList({ navigation, route }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState({});
 
-  const handleSaveRecipe = (item) => {
-    mergeItem("favorite", item);
+  const handleSaveRecipe = async (item) => {
+    setIsCardLoading(true);
+    old = await getItem("favorite");
+    await setItem((key = "favorite"), (value = [...old, item])).finally(() => {
+      setIsCardLoading(false);
+    });
   };
 
   const handleRecipeSearch = () => {

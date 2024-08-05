@@ -29,7 +29,7 @@ const OpenURLButton = ({ url, children, style }) => {
   return <Button title={children} onPress={handlePress} style={style} />;
 };
 
-const RecipeModal = ({ content, visible, isLoading, closeModal, saveItem }) => {
+const SavedModal = ({ content, visible, isLoading, closeModal, saveItem }) => {
   const PRICE = content.pricePerServing / 100;
   const TEXT = `View in ${content?.sourceName}`;
   return (
@@ -80,7 +80,7 @@ const RecipeModal = ({ content, visible, isLoading, closeModal, saveItem }) => {
               style={[styles.button, styles.buttonSearch]}
               onPress={() => saveItem()}
             >
-              <Text style={styles.textStyle}>Save to Favorites</Text>
+              <Text style={styles.textStyle}>Remove from Favorites</Text>
             </Pressable>
             <OpenURLButton
               style={[styles.button, styles.buttonSearch]}
@@ -175,4 +175,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecipeModal;
+export default SavedModal;
