@@ -8,6 +8,7 @@ import {
   View,
   ActivityIndicator,
 } from "react-native";
+import { Icon } from "@rneui/themed";
 import FoodList from "../FoodList/FoodList";
 
 const ConfirmModal = ({

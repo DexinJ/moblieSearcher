@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, StyleSheet, Dimensions } from "react-native";
 import FoodNode from "../FoodNode/FoodNode";
+import { Icon } from "@rneui/themed";
 
 export default function FoodList({
   title = "Title",
